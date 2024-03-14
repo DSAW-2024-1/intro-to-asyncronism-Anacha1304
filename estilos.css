@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    padding-top: 40px;
+    font-size: 20px;
+
+
+    background-image: url('./images/d85df72419602be52b66ebd1b9327d73.jpeg');
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir toda la pantalla */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* Otros estilos opcionales para el cuerpo de la página */
+    font-family: Arial, sans-serif;
+    color: #fff;
+    
+}
+h1{
+    font-size: 3;
+}
+
+.container {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+
+    
+   
+}
+
+.search{
+    display: flex;
+
+}
