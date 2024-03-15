@@ -12,19 +12,23 @@
     <script src="https://kit.fontawesome.com/fa1edbab3d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>The Simpsons</h1>
-        <p>
-           Esta aplicación te va a servir para conocer más acerca de tus personajes favoritos de los Simpsons, 
-           interactúa con todo lo que puedas y todo será más divertido. Empieza ahora!!!
-        </p>
+    <div class="container" id="big-container">
+        <div class="title">
+            <img class="titulo" src="images/The_Simpsons_title_screen_HD.jpg" alt="Titulo de los Simpsons">
+            <img class="dona" src="images/b09d8964573bee9b39a281a908a323fe.png">
+        </div>
+
+        <div class="intro">
+            <p>Esta aplicación te va a servir para conocer más acerca de tus personajes favoritos de los Simpsons, 
+                interactúa con todo lo que puedas y todo será más divertido. Empieza ahora!!!
+            </p>
+        </div>
+        
         <div class="search"> 
-            <div> 
-                <form action="/search" method="GET">
-                    <input type="text" name="query" placeholder="Search...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
-            </div>
+            <form id="characterSearch" action="/search" method="GET">
+                <input type="text" id="personaje" placeholder="Search...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </form>
     
             <div> 
                 <form action="/search" method="GET">
@@ -40,12 +44,12 @@
                 </form>
             </div>
          </div>
+
+         <div id="quotes"></div>
         
 
-    </div>
+        </div>
 
-    <div class="attribution">
-        Coded by <a href="#">Ana María Chaves Pérez</a>.
-      </div>
+   <script src="./JSscript.js"></script>
 </body>
 </html>
