@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./estilos.css" />
-    <link rel="icon" type="image/x-icon" href="./Assets/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abel&family=Permanent+Marker&family=Sora:wght@100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./Assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abel&family=Permanent+Marker&family=Sora:wght@100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>THE SIMPSONS</title>
-    <script src="https://kit.fontawesome.com/fa1edbab3d.js" crossorigin="anonymous"></script>
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/fa1edbab3d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <div class="container" id="big-container">
-        <div class="title">
-            <img class="titulo" src="images/The_Simpsons_title_screen_HD.jpg" alt="Titulo de los Simpsons">
-            <img class="dona" src="images/b09d8964573bee9b39a281a908a323fe.png">
+      <div class="title">
+        <img
+          class="titulo"
+          src="images/The_Simpsons_title_screen_HD.jpg"
+          alt="Titulo de los Simpsons"
+        />
+        <img
+          id="rotar"
+          class="dona"
+          src="images/b09d8964573bee9b39a281a908a323fe.png"
+        />
+      </div>
+
+      <div class="intro">
+        <p>
+          Esta aplicación te va a servir para conocer más acerca de tus
+          personajes favoritos de los Simpsons, interactúa con todo lo que
+          puedas y todo será más divertido. Empieza ahora!!!
+        </p>
+      </div>
+
+      <div class="search">
+        <form id="characterSearch" class="barra" action="/search" method="GET">
+          <input type="text" id="personaje" placeholder="Busca un personaje" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </form>
+
+        <div class="second-search">
+          <input type="text" id="how-many" placeholder="Nombre del personaje" />
+          <input
+            type="number"
+            id="how-many-phrases"
+            placeholder="Cantidad de frases"
+          />
+          <i id="searchIcon2" class="fa-solid fa-magnifying-glass"></i>
         </div>
+      </div>
 
-        <div class="intro">
-            <p>Esta aplicación te va a servir para conocer más acerca de tus personajes favoritos de los Simpsons, 
-                interactúa con todo lo que puedas y todo será más divertido. Empieza ahora!!!
-            </p>
-        </div>
-        
-        <div class="search"> 
-            <form id="characterSearch" action="/search" method="GET">
-                <input type="text" id="personaje" placeholder="Search...">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </form>
-    
-            <div> 
-                <form action="/search" method="GET">
-                    <input type="text" name="query" placeholder="Search...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
-            </div>
-    
-            <div> 
-                <form action="/search" method="GET">
-                    <input type="text" name="query" placeholder="Search...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
-            </div>
-         </div>
+      <div id="quotes"></div>
 
-         <div id="quotes"></div>
-        
+      <div class="botones">
+        <button id="backButton" class="go-back">Home</button>
+        <i id="loadMore" class="fa-solid fa-square-plus icon-plus"></i>
+      </div>
+    </div>
 
-        </div>
-
-   <script src="./JSscript.js"></script>
-</body>
+    <script src="./JSscript.js"></script>
+  </body>
 </html>

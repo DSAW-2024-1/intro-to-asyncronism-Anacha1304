@@ -1,84 +1,165 @@
-document.addEventListener("DOMContentLoaded", async function() {
-    let bigContainer = document.getElementById('big-container');
-    await displayPosters(bigContainer);
-
-    let quotes = document.getElementById('quotes');
-    let characterSearch = document.getElementById('characterSearch');
-
-    characterSearch.addEventListener('click', async function (event) {
-        event.preventDefault();
-
-        let personaje = document.getElementById('personaje').value.trim();
-        if (personaje === '') return;
-
-        let characterQuotes = await fetchQuotes(personaje);
-        displayQuotes(characterQuotes);
-    });
-
-    async function fetchQuotes(personaje){
-        try {
-            let response = await fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?character=${encodeURIComponent(personaje)}`);
-            let data = await response.json();
-            return data; 
-        } catch (error) {
-            console.error('Hubo un error al obtener las citas de la API');
-            return [];
-        }
-    }
-
-    function displayQACuotes(characterQuotes) {
-        quotes.innerHTML = '';
-
-        if (characterQuotes.length === 0) {
-            quotes.innerHTML = '<p>No se encontraron citas para este personaje.</p>';
-            return;
-        }
-
-        characterQuotes.forEach(quote => {
-            let quoteElement = document.createElement('div');
-            quoteElement.textContent = '${quote.character} : "${quote.quote"';
-            quotes.appendChild(quoteElement);
-        });
-    }
-    
-});
-
-let shown = [];
-
- 
-
-async function simpsonsData() {
+async function characters() {
     try {
         let response = await fetch('https://thesimpsonsquoteapi.glitch.me/quotes?count=8');
         let data = await response.json();
-        return data;
+        let container = document.getElementById('quotes');
+        
+        // Limpiar el contenedor antes de agregar nuevos elementos
+        container.innerHTML = '';
+        
+        data.forEach(personaje => {
+            let cuadro = document.createElement('div');
+            cuadro.classList.add('cuadro');
+            let image = document.createElement('img');
+            image.src = personaje.image;
+            let nombre = document.createElement('div');
+            nombre.classList.add('name');
+            nombre.textContent = personaje.character;
+            
+            cuadro.appendChild(image);
+            cuadro.appendChild(nombre);
+            container.appendChild(cuadro);
+        });
     } catch (error) {
-        console.error('Hubo un error al obtener los datos de la API', error);
+        console.error('Error al cargar los personajes:', error);
     }
 }
 
-async function displayPosters(bigContainer) {
-    let data = await simpsonsData();
 
-    data.forEach(character => {
- 
-        if(!shown.includes(character.character)){
-            let cuadro = document.createElement('div');
-            cuadro.className = 'cuadro';
+characters();
 
-            let img = document.createElement('img');
-            img.src = character.image;
-            cuadro.appendChild(img);
+let icon = document.querySelector('.fa-magnifying-glass');
 
-            let name = document.createElement('div');
-            name.className = 'name';
-            name.textContent = character.character;
-            cuadro.appendChild(name);
+icon.addEventListener('click', async function(event) {
+    event.preventDefault();
+   
+    let searchTerm = document.getElementById('personaje').value;
+    if (searchTerm.trim() !== '') {
+        try {
+            let response = await fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?character=${searchTerm}&count=8`);
+            let data = await response.json();
 
-            bigContainer.appendChild(cuadro);
+            
+            let container = document.getElementById('quotes');
+            container.innerHTML = '';
+            
+            data.forEach(personaje => {
+                let cuadro = document.createElement('div');
+                cuadro.classList.add('poster');
 
-            shown.push(character.character);
+                // Agregar imagen del personaje
+                let imagen = document.createElement('img');
+                imagen.classList.add('imagen');
+                imagen.src = personaje.image;
+                cuadro.appendChild(imagen);
+
+                // Agregar nombre del personaje
+                let nombre = document.createElement('div');
+                nombre.classList.add('nombre');
+                nombre.textContent = personaje.character;
+                cuadro.appendChild(nombre);
+
+                // Agregar frase del personaje
+                let textoFrase = document.createElement('p');
+                textoFrase.textContent = `"${personaje.quote}"`;
+                textoFrase.classList.add('text');
+                textoFrase.style.color = 'black';
+                cuadro.appendChild(textoFrase);
+                
+                container.appendChild(cuadro);
+            });
+          
+            ocultar();
+
+        } catch (error) {
+            console.error('Error al cargar las frases del personaje:', error);
         }
-        
+    }
+});
+
+let icon2 = document.getElementById('searchIcon2');
+if (searchIcon2) {
+    searchIcon2.addEventListener('click', async function(event){
+        event.preventDefault();
+        let item2 = document.getElementById('how-many').value;
+        let countPhrase = document.getElementById('how-many-phrases').value;
+
+        if (item2.trim() !== '' && countPhrase > 0) {
+            try {
+                let response = await fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?character=${item2}&count=${countPhrase}`);
+                let data = await response.json();
+
+                let container = document.getElementById('quotes');
+                container.innerHTML='';
+
+                data.forEach(personaje => {
+                    let cuadro = document.createElement('div');
+                    cuadro.classList.add('poster');
+
+                    let imagen = document.createElement('img');
+                    imagen.classList.add('imagen');
+                    imagen.src = personaje.image;
+                    cuadro.appendChild(imagen);
+
+                    let nombre = document.createElement('div');
+                    nombre.classList.add('nombre');
+                    nombre.textContent = personaje.character;
+                    cuadro.appendChild(nombre);
+
+                    let textoFrase = document.createElement('p');
+                    textoFrase.textContent = `"${personaje.quote}"`;
+                    textoFrase.classList.add('text');
+                    cuadro.appendChild(textoFrase);
+                    
+                    container.appendChild(cuadro);
+                });
+                ocultar();
+
+            } catch (error) {
+                console.error('Error al cargar las frases del personaje:', error);
+            }
+        } else {
+            alert('Por favor, ingresa un nombre de personaje válido y una cantidad de frases mayor que cero.');
+        }
     });
+} else {
+    console.error('No se encontró el ícono de búsqueda con el ID searchIcon2');
+}
+        
+let backButton = document.getElementById('backButton');
+backButton.addEventListener('click', function(event) {
+    event.preventDefault(); 
+    window.location.href = "index.html";
+});
+
+
+let loadMore = document.getElementById('loadMore');
+loadMore.addEventListener('click', cargarMasPersonajes);
+
+async function cargarMasPersonajes() {
+    try {
+        let response = await fetch('https://thesimpsonsquoteapi.glitch.me/quotes?count=4');
+        let data = await response.json();
+        let container = document.getElementById('quotes');
+
+        data.forEach(personaje => {
+            let cuadro = document.createElement('div');
+            cuadro.classList.add('cuadro');
+            let image = document.createElement('img');
+            image.src = personaje.image;
+            let nombre = document.createElement('div');
+            nombre.classList.add('name');
+            nombre.textContent = personaje.character;
+
+            cuadro.appendChild(image);
+            cuadro.appendChild(nombre);
+            container.appendChild(cuadro);
+        });
+    } catch (error) {
+        console.error('Error al cargar más personajes:', error);
+    }
+}
+
+function ocultar (){
+    loadMore.style.display = 'none';
 }
